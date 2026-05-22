@@ -14,7 +14,7 @@ namespace ClashRoyaleLookup
 
             if (clashApiKey == null)
             {
-                throw new Exception("You need a API Key to use this program. Go to https://developer.clashroyale.com to create a Account \n and get a token. This program will now exit.");
+                throw new Exception("You need a API Key to use this program. Go to https://developer.clashroyale.com to create an Account \n and get a token. This program will now exit.");
             }
             
             Client.DefaultRequestHeaders.Add(name: "Authorization",
