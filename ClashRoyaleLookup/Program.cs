@@ -1,2 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddHttpClient();
+
+builder.Services.AddSingleton(builder.Configuration["ClashRoyaleApiKey"]!);
+var app = builder.Build();
+app.UseStaticFiles();
+app.MapControllers();
+app.Run();
