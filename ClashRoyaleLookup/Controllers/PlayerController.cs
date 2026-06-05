@@ -1,25 +1,23 @@
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Http.HttpResults;
+using ClashRoyaleLookup;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 [ApiController]
 [Route("api/[controller]")]
 public class PlayerController
 {
     private readonly string _apiKey;
-    
+
     public PlayerController(IConfiguration configuration)
     {
         _apiKey = configuration["ClashRoyaleApiKey"];
     }
-    
+
     [HttpGet("{tag}")]
     public async Task<IResult> Get(string tag)
     {
         try
         {
-            var profile = await ClashRoyaleLookup.ClashLookup.SearchForUser(tag, _apiKey);
+            var profile = await ClashLookup.SearchForUser(tag, _apiKey);
             return profile == null ? Results.NotFound(new { message = "User not found" }) : Results.Ok(profile);
         }
         catch (Exception e)
@@ -29,12 +27,11 @@ public class PlayerController
     }
 
     [HttpGet("badge/{badgeId}")]
-
     public async Task<IResult> Get(int badgeId)
     {
         try
         {
-            var icon = await ClashRoyaleLookup.ClashLookup.GrabClanIcon(badgeId);
+            var icon = await ClashLookup.GrabClanIcon(badgeId);
 
             if (icon != null)
                 icon.IconUrl = $"https://royaleapi.github.io/cr-api-assets/badges/{icon.Name}.png";

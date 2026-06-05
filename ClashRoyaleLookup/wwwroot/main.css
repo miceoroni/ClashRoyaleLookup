@@ -1,7 +1,43 @@
+@font-face {
+    font-family: "Clash Regular";
+    src: url('./assets/Clash_Regular.otf');
+}
+
+@font-face {
+    font-family: "Clash Bold";
+    src: url('./assets/Clash_Bold.otf');
+}
+
 body {
     background-image: url("./assets/background.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+}
+
+h1 {
+    font-family: "Clash Bold", sans-serif;
+    text-shadow: black 1px 1px 1px;
+}
+
+.user-title {
+    font-family: "Clash Bold", sans-serif;
+    text-shadow: black 1px 1px 1px;
+}
+
+.stats {
+    font-family: "Clash Regular", sans-serif;
+    text-shadow: black 1px 1px 1px;
+}
+
+.clan-text {
+    font-family: "Clash Bold", sans-serif;
+    font-size: 0.8rem;
+    text-shadow: black 1px 1px 1px;
+}
+
+.icon {
+    width: 25px;
+    display: inline-block;
 }

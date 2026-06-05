@@ -43,7 +43,8 @@ namespace ClashRoyaleLookup
             public int losses { get; set; }
             public int battleCount { get; set; }
             public int threeCrownWins { get; set; }
-        }
+            public CurrentFavouriteCard currentFavouriteCard { get; set; }
+    }
 
         public class Clan
         {
@@ -69,6 +70,28 @@ namespace ClashRoyaleLookup
             public int Id { get; set; }
             
             public string? IconUrl { get; set; }
+        }
+
+        public class CardIconUrls
+        {
+            public string? medium { get; set; }
+            public string? evolutionMedium { get; set; }
+        }
+        public class CurrentFavouriteCard
+        {
+            public CardIconUrls iconUrls { get; set; }
+            
+            public string name { get; set; }
+            
+            public int id { get; set; }
+            
+            public string rarity { get; set; }
+            
+            public int maxLevel { get; set; }
+            
+            public int elixirCost { get; set; }
+            
+            public int maxEvolutionLevel { get; set; }
         }
         // I hate supercell for not including an api for this. - Mice 6/4/26
         public static async Task<ClanBadge> GrabClanIcon(int BadgeId)

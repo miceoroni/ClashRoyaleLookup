@@ -6,17 +6,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
+
+    <img src="./assets/aJWNVZ2grMBHPC5T3M4R.webp" style="width: 500px; display: block; margin: 0 auto;"/>
     <h1 class="text-light text-center">Clash Royale Lookup</h1>
 
     <link rel="stylesheet" href="main.css">
-    <div class="input-group mb-3">
+    <div class="input-group mb-4 mx-auto w-25">
         <input type="text" class="form-control" aria-label="User ID" aria-describedby="basic-addon1" id="tagInput" placeholder="#ABC123" />
         <button class="btn btn-primary" onclick="search()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
         </svg>Search</button>
     </div>
         
-    <div id="error" style="color:red"></div>
+    <div id="error" class="text-center mb-4 mx-auto w-25" style="color:red"></div>
     <div id="results"></div>
 
     <script>
@@ -27,7 +29,7 @@
 
             error.textContent = '';
             results.innerHTML = '<span class="visually-hidden">Loading...</span>';
-            results.setAttribute('class', 'spinner-border');
+            results.setAttribute('class', 'spinner-border mx-auto');
 
             try {
                 const res = await fetch(`/api/player/${tag}`);
@@ -42,14 +44,19 @@
                 const clanIconRes = await fetch(`/api/player/badge/${data.clan.badgeId}`)
                 const clanData = await clanIconRes.json();
                 
-                results.setAttribute('class', '');
+                results.setAttribute('class', 'w-25 mx-auto text-light');
                 results.innerHTML = `
-                    <h2><img src="${clanData.iconUrl}">${data.name}</h2>
-                    <p>Level: ${data.expLevel}</p>
-                    <p>Trophies: ${data.trophies} (Best: ${data.bestTrophies})</p>
-                    <p>Wins: ${data.wins} | Losses: ${data.losses}</p>
-                    <p>Battles: ${data.battleCount}</p>
-                    <p>3-Crown Wins: ${data.threeCrownWins}</p>
+                    <div>
+                        <h2 class="user-title"><img class="icon" src="${clanData.iconUrl}" alt="Icon of ${data.name}'s clan">${data.name}</h2>
+                        <p class="clan-text">Apart of ${data.clan.name}</p>
+                    </div>
+                    <p class="stats"><img class="icon" src="./assets/XP.webp" alt="XP"/> Level: ${data.expLevel}</p>
+                    <p class="stats"><img class="icon" src="./assets/Trophy.webp" alt="Trophy"/> Trophies: ${data.trophies} (Best: ${data.bestTrophies})</p>
+                    <p class="stats"><img class="icon" src="./assets/clashcrown.png" alt="Crown"/> Wins: ${data.wins}</p>
+                    <p class="stats">Losses: ${data.losses}</p>
+                    <p class="stats">Battles: ${data.battleCount}</p>
+                    <p class="stats">3-Crown Wins: ${data.threeCrownWins}</p>
+                    <p class="stats">Current Favorite Card: ${data.currentFavouriteCard.name}</p>
                 `;
             } catch {
                 error.textContent = 'Something went wrong.';
