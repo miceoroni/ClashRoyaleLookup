@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -20,6 +21,24 @@ public class PlayerController
         {
             var profile = await ClashRoyaleLookup.ClashLookup.SearchForUser(tag, _apiKey);
             return profile == null ? Results.NotFound(new { message = "User not found" }) : Results.Ok(profile);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message + "\n" + e.StackTrace);
+        }
+    }
+
+    [HttpGet("badge/{badgeId}")]
+
+    public async Task<IResult> Get(int badgeId)
+    {
+        try
+        {
+            var icon = await ClashRoyaleLookup.ClashLookup.GrabClanIcon(badgeId);
+
+            if (icon != null)
+                icon.IconUrl = $"https://royaleapi.github.io/cr-api-assets/badges/{icon.Name}.png";
+            return icon == null ? Results.NotFound(new { message = "Icon not found " }) : Results.Ok(icon);
         }
         catch (Exception e)
         {

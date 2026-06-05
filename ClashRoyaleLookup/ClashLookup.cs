@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ClashRoyaleLookup
 {
@@ -32,6 +34,7 @@ namespace ClashRoyaleLookup
 
         public class PlayerProfile
         {
+            public Clan clan { get; set; }
             public string? name { get; set; }
             public int expLevel { get; set; }
             public int trophies { get; set; }
@@ -40,6 +43,41 @@ namespace ClashRoyaleLookup
             public int losses { get; set; }
             public int battleCount { get; set; }
             public int threeCrownWins { get; set; }
+        }
+
+        public class Clan
+        {
+            [JsonPropertyName("tag")]
+            public string Tag { get; set; }
+            
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+            
+            [JsonPropertyName("badgeId")]
+            public int BadgeId { get; set; }
+        }
+
+        public class ClanBadge
+        {
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+            
+            [JsonPropertyName("icon_export_name")]
+            public string IconExportName { get; set; }
+            
+            [JsonPropertyName("id")]
+            public int Id { get; set; }
+            
+            public string? IconUrl { get; set; }
+        }
+        // I hate supercell for not including an api for this. - Mice 6/4/26
+        public static async Task<ClanBadge> GrabClanIcon(int BadgeId)
+        {
+            string path = Path.Combine(AppContext.BaseDirectory, "alliance_badges.json");
+            using FileStream stream = File.OpenRead(path);
+            var list = await JsonSerializer.DeserializeAsync<List<ClanBadge>>(stream);
+            
+            return list?.FirstOrDefault(b => b.Id == BadgeId);
         }
     }
 }

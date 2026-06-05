@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <h1 class="text-light">Clash Royale Lookup</h1>
+    <h1 class="text-light text-center">Clash Royale Lookup</h1>
 
     <link rel="stylesheet" href="main.css">
     <div class="input-group mb-3">
@@ -38,9 +38,13 @@
                     results.innerHTML = '';
                     return;
                 }
+                
+                const clanIconRes = await fetch(`/api/player/badge/${data.clan.badgeId}`)
+                const clanData = await clanIconRes.json();
+                
                 results.setAttribute('class', '');
                 results.innerHTML = `
-                    <h2>${data.name}</h2>
+                    <h2><img src="${clanData.iconUrl}">${data.name}</h2>
                     <p>Level: ${data.expLevel}</p>
                     <p>Trophies: ${data.trophies} (Best: ${data.bestTrophies})</p>
                     <p>Wins: ${data.wins} | Losses: ${data.losses}</p>
