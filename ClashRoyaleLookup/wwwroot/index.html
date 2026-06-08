@@ -7,13 +7,13 @@
 </head>
 <body>
 
-    <img src="./assets/aJWNVZ2grMBHPC5T3M4R.webp" style="width: 500px; display: block; margin: 0 auto;"/>
+    <img src="./assets/aJWNVZ2grMBHPC5T3M4R.webp" alt="Clash Royale Logo" style="width: 500px; display: block; margin: 0 auto;"/>
     <h1 class="text-light text-center">Clash Royale Lookup</h1>
 
     <link rel="stylesheet" href="main.css">
     <div class="input-group mb-4 mx-auto w-25">
         <input type="text" class="form-control" aria-label="User ID" aria-describedby="basic-addon1" id="tagInput" placeholder="#ABC123" />
-        <button class="btn btn-primary" onclick="search()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <button class="btn btn-primary" onclick="search()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" id="searchIcon" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
         </svg>Search</button>
     </div>
@@ -53,10 +53,20 @@
                     <p class="stats"><img class="icon" src="./assets/XP.webp" alt="XP"/> Level: ${data.expLevel}</p>
                     <p class="stats"><img class="icon" src="./assets/Trophy.webp" alt="Trophy"/> Trophies: ${data.trophies} (Best: ${data.bestTrophies})</p>
                     <p class="stats"><img class="icon" src="./assets/clashcrown.png" alt="Crown"/> Wins: ${data.wins}</p>
-                    <p class="stats">Losses: ${data.losses}</p>
-                    <p class="stats">Battles: ${data.battleCount}</p>
-                    <p class="stats">3-Crown Wins: ${data.threeCrownWins}</p>
-                    <p class="stats">Current Favorite Card: ${data.currentFavouriteCard.name}</p>
+                    <p class="stats"><img class="icon" src="./assets/clashcrown_red.png" alt="Red Crown"/> Losses: ${data.losses}</p>
+                    <p class="stats"><img class="icon" src="./assets/battle.png" alt="Battle Icon"/> Battles: ${data.battleCount}</p>
+                    <p class="stats"><img class="icon" src="./assets/threecrown.png" alt="Three Crowns"/> 3-Crown Wins: ${data.threeCrownWins}</p>
+                    <div>
+                        <div>
+                            <p class="user-title">Current Favorite Card</p>
+                        </div>
+                        <div>
+                            <div id="favorite-card-container">
+                                <img src="${data.currentFavouriteCard.iconUrls.medium}" id="favorite-card-icon" alt="Favorite Card"/>
+                                <p id="favorite-card-text">${data.currentFavouriteCard.name}<br><small>${data.currentFavouriteCard.rarity.toUpperCase()}</small></p>
+                            </div>
+                        </div>
+                    </div>
                 `;
             } catch {
                 error.textContent = 'Something went wrong.';
