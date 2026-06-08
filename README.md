@@ -37,7 +37,8 @@ ClashRoyaleLookup
 ```
 
 ## Usage
-Just simply run ClashRoyaleLookup. It should spawn a webserver on localhost:5000. 
+Just simply run ClashRoyaleLookup. It should spawn a webserver on localhost:5000.
+Grab a player tag by following this [guide.](https://support.supercell.com/hay-day/en/articles/player-tag.html)
 
 ## Support
 For support, please utilize the issues section. I will try my best to look into the issue and (hopefully) fix it.
